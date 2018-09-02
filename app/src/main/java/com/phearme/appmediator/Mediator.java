@@ -13,7 +13,7 @@ public class Mediator {
 
     public synchronized static Mediator getInstance(Context context) {
         if (mInstance == null) {
-            mInstance = new Mediator(context);
+            mInstance = new Mediator(context.getApplicationContext());
         }
         return mInstance;
     }

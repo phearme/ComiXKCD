@@ -1,5 +1,6 @@
 package com.phearme.comixkcd;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,11 +16,12 @@ import android.view.View;
 import com.phearme.appmediator.IMediatorEventHandler;
 import com.phearme.appmediator.Mediator;
 import com.phearme.comixkcd.databinding.ActivityMainBinding;
+import com.phearme.xkcdclient.Comic;
 import com.yarolegovich.discretescrollview.DiscreteScrollView;
 import com.yarolegovich.discretescrollview.transform.Pivot;
 import com.yarolegovich.discretescrollview.transform.ScaleTransformer;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainViewModel.IMainViewModelEvents {
 
     private ComicsScrollViewAdapter comicsScrollViewAdapter;
     private DiscreteScrollView comicsScrollView;
@@ -28,43 +30,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        final MainViewModel viewModel = new MainViewModel(this, new MainViewModel.IMainViewModelEvents() {
-            @Override
-            public void onDatasetChanged() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (comicsScrollViewAdapter != null) {
-                            comicsScrollViewAdapter.notifyDataSetChanged();
-                        }
-                    }
-                });
-            }
-
-            @Override
-            public void onItemChanged(final int position) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (comicsScrollViewAdapter != null) {
-                            comicsScrollViewAdapter.notifyItemChanged(position);
-                        }
-                    }
-                });
-            }
-
-            @Override
-            public void onScrollToPosition(final int position) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (comicsScrollView != null) {
-                            comicsScrollView.smoothScrollToPosition(position);
-                        }
-                    }
-                });
-            }
-        });
+        final MainViewModel viewModel = new MainViewModel(this, this);
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         binding.setViewModel(viewModel);
 
@@ -118,5 +84,53 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onDatasetChanged() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (comicsScrollViewAdapter != null) {
+                    comicsScrollViewAdapter.notifyDataSetChanged();
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onItemChanged(final int position) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (comicsScrollViewAdapter != null) {
+                    comicsScrollViewAdapter.notifyItemChanged(position);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onScrollToPosition(final int position) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (comicsScrollView != null) {
+                    comicsScrollView.smoothScrollToPosition(position);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onComicClick(final Comic comic) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(MainActivity.this, ComicViewerActivity.class);
+                intent.putExtra("url", comic.getImg());
+                startActivity(intent);
+            }
+        });
     }
 }

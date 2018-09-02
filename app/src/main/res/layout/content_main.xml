@@ -14,15 +14,6 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context=".MainActivity"
         tools:showIn="@layout/activity_main">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:paddingTop="12dp"
-            android:text="@{viewModel.currentComic.title}"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            tools:text="sdfsdfs" />
         <com.yarolegovich.discretescrollview.DiscreteScrollView
             android:id="@+id/comicsScrollView"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -31,6 +22,17 @@
             app:layout_constraintTop_toTopOf="parent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-
+        <TextView
+            android:shadowColor="@android:color/white"
+            android:shadowDx="4"
+            android:shadowDy="4"
+            android:shadowRadius="2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingTop="12dp"
+            android:text="@{viewModel.currentComic.title}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            tools:text="sdfsdfs" />
     </android.support.constraint.ConstraintLayout>
 </layout>

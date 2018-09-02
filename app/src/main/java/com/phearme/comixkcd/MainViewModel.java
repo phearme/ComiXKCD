@@ -3,7 +3,6 @@ package com.phearme.comixkcd;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.util.Log;
 import android.view.View;
 
 import com.phearme.appmediator.IMediatorEventHandler;
@@ -26,6 +25,7 @@ public class MainViewModel extends BaseObservable {
         void onDatasetChanged();
         void onItemChanged(int position);
         void onScrollToPosition(int position);
+        void onComicClick(Comic comic);
     }
 
     MainViewModel(Context context, final IMainViewModelEvents events) {
@@ -69,7 +69,6 @@ public class MainViewModel extends BaseObservable {
             mediator.getComic(comicNumber, new IMediatorEventHandler<Comic>() {
                 @Override
                 public void onEvent(Comic comic) {
-                    Log.d("raf", "comic loaded " + itemPosition);
                     comics.set(itemPosition, comic);
                     if (events != null) {
                         events.onItemChanged(itemPosition);
@@ -90,21 +89,22 @@ public class MainViewModel extends BaseObservable {
         if (events != null && lastComicIndex != null) {
             int randomPosition = new Random().nextInt(lastComicIndex + 1);
             events.onScrollToPosition(randomPosition);
-            Log.d("raf", "onShuffleButtonClick " + randomPosition);
-            //loadBufferContentFromPosition(randomPosition);
         }
     }
 
     public void loadBufferContentFromPosition(int position) {
-        Log.d("raf", "loadBufferContentFromPosition " + position);
         currentPosition = position;
+        Comic comic = comics.get(currentPosition);
+        if (comic == null) {
+            loadComic(currentPosition);
+        } else {
+            setCurrentComic(comic);
+        }
         for (int i = position - LOAD_ITEMS_BUFFER_COUNT; i < position + LOAD_ITEMS_BUFFER_COUNT; i++) {
-            if (i >=0 && i < comics.size()) {
-                Comic comic = comics.get(i);
+            if (i >=0 && i < comics.size() && i != currentPosition) {
+                comic = comics.get(i);
                 if (comic == null) {
                     loadComic(i);
-                } else if (i == currentPosition) {
-                    setCurrentComic(comic);
                 }
             }
         }
@@ -118,5 +118,11 @@ public class MainViewModel extends BaseObservable {
     public void setCurrentComic(Comic currentComic) {
         this.currentComic = currentComic;
         notifyPropertyChanged(BR.currentComic);
+    }
+
+    public void onComicClick(Comic comic) {
+        if (events != null) {
+            events.onComicClick(comic);
+        }
     }
 }
