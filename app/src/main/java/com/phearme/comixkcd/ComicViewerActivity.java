@@ -19,4 +19,10 @@ public class ComicViewerActivity extends AppCompatActivity {
         PhotoView photoView = findViewById(R.id.comic_photo_view);
         Glide.with(photoView).load(imgUrl).apply(new RequestOptions().fitCenter()).into(photoView);
     }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        overridePendingTransition(R.anim.to_left, R.anim.to_left);
+    }
 }

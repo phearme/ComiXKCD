@@ -25,7 +25,7 @@ public class MainViewModel extends BaseObservable {
         void onDatasetChanged();
         void onItemChanged(int position);
         void onScrollToPosition(int position);
-        void onComicClick(Comic comic);
+        void onComicClick(View view, Comic comic);
     }
 
     MainViewModel(Context context, final IMainViewModelEvents events) {
@@ -120,9 +120,9 @@ public class MainViewModel extends BaseObservable {
         notifyPropertyChanged(BR.currentComic);
     }
 
-    public void onComicClick(Comic comic) {
+    public void onComicClick(View view, Comic comic) {
         if (events != null) {
-            events.onComicClick(comic);
+            events.onComicClick(view, comic);
         }
     }
 }

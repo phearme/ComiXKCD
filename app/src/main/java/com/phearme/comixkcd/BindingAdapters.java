@@ -11,9 +11,9 @@ public class BindingAdapters {
     @BindingAdapter("loadWithGlide")
     public static void setImageWithGlide(ImageView view, String imgUrl) {
         if (imgUrl != null) {
-            Glide.with(view).load(imgUrl).apply(new RequestOptions().fitCenter()).into(view);
+            Glide.with(view).load(imgUrl).apply(new RequestOptions().fitCenter().placeholder(R.drawable.ic_xkcdholder)).into(view);
         } else {
-            Glide.with(view).clear(view);
+            Glide.with(view).load(R.drawable.ic_xkcdholder).apply(new RequestOptions().centerInside().placeholder(R.drawable.ic_xkcdholder)).into(view);
         }
     }
 }

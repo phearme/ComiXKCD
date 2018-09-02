@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <com.github.chrisbanes.photoview.PhotoView
+        android:transitionName="comicimage"
         android:id="@+id/comic_photo_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

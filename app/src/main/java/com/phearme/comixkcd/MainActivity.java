@@ -1,5 +1,6 @@
 package com.phearme.comixkcd;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -123,14 +124,18 @@ public class MainActivity extends AppCompatActivity implements MainViewModel.IMa
     }
 
     @Override
-    public void onComicClick(final Comic comic) {
+    public void onComicClick(final View view, final Comic comic) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 Intent intent = new Intent(MainActivity.this, ComicViewerActivity.class);
                 intent.putExtra("url", comic.getImg());
-                startActivity(intent);
+                startActivity(
+                        intent,
+                        ActivityOptions.makeSceneTransitionAnimation(MainActivity.this, view, "comicimage")
+                                .toBundle());
             }
         });
     }
+
 }
