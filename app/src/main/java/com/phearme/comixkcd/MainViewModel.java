@@ -26,15 +26,25 @@ public class MainViewModel extends BaseObservable {
         void onItemChanged(int position);
         void onScrollToPosition(int position);
         void onComicClick(View view, Comic comic);
+        void onFailedLoadingData();
     }
 
     MainViewModel(Context context, final IMainViewModelEvents events) {
         this.events = events;
+        init(context);
+    }
+
+    private void init(Context context) {
         comics = new ArrayList<>();
         mediator = Mediator.getInstance(context);
         mediator.getLastComicIndex(new IMediatorEventHandler<Integer>() {
             @Override
             public void onEvent(Integer result) {
+                if (result == null && events != null) {
+                    events.onFailedLoadingData();
+                    return;
+                }
+
                 if (result != null) {
                     lastComicIndex = result;
                     for (int i = 0; i < lastComicIndex; i++) {
@@ -86,7 +96,11 @@ public class MainViewModel extends BaseObservable {
     }
 
     public void onShuffleButtonClick(View view) {
-        if (events != null && lastComicIndex != null) {
+        if (lastComicIndex == null) {
+            init(view.getContext());
+            return;
+        }
+        if (events != null) {
             int randomPosition = new Random().nextInt(lastComicIndex + 1);
             events.onScrollToPosition(randomPosition);
         }

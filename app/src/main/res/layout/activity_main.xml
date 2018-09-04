@@ -10,6 +10,7 @@
             type="com.phearme.comixkcd.MainViewModel"/>
     </data>
     <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/parentLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MainActivity">

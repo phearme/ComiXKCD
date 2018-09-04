@@ -5,17 +5,14 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.phearme.appmediator.IMediatorEventHandler;
-import com.phearme.appmediator.Mediator;
 import com.phearme.comixkcd.databinding.ActivityMainBinding;
 import com.phearme.xkcdclient.Comic;
 import com.yarolegovich.discretescrollview.DiscreteScrollView;
@@ -26,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements MainViewModel.IMa
 
     private ComicsScrollViewAdapter comicsScrollViewAdapter;
     private DiscreteScrollView comicsScrollView;
+    private View parentLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,24 +35,7 @@ public class MainActivity extends AppCompatActivity implements MainViewModel.IMa
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Mediator.getInstance(MainActivity.this).getLastComicIndex(new IMediatorEventHandler<Integer>() {
-                    @Override
-                    public void onEvent(Integer result) {
-                        if (result != null) {
-                            Log.d("raf", result.toString());
-                        }
-                    }
-                });
-/*                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();*/
-            }
-        });
-
+        parentLayout = findViewById(R.id.parentLayout);
         comicsScrollViewAdapter = new ComicsScrollViewAdapter(viewModel);
         comicsScrollView = findViewById(R.id.comicsScrollView);
         comicsScrollView.setAdapter(comicsScrollViewAdapter);
@@ -128,12 +109,25 @@ public class MainActivity extends AppCompatActivity implements MainViewModel.IMa
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                if (comic == null) {
+                    return;
+                }
                 Intent intent = new Intent(MainActivity.this, ComicViewerActivity.class);
                 intent.putExtra("url", comic.getImg());
                 startActivity(
                         intent,
                         ActivityOptions.makeSceneTransitionAnimation(MainActivity.this, view, "comicimage")
                                 .toBundle());
+            }
+        });
+    }
+
+    @Override
+    public void onFailedLoadingData() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Snackbar.make(parentLayout, R.string.something_went_wrong, Snackbar.LENGTH_LONG).show();
             }
         });
     }

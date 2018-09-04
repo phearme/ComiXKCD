@@ -15,7 +15,7 @@ import com.github.chrisbanes.photoview.PhotoView;
 
 public class ComicViewerActivity extends AppCompatActivity {
     private static final int AUTO_HIDE_DELAY_MILLIS = 3000;
-    private static final int FIRST_HIDE_DELAY_MILLIS = 1000;
+    private static final int FIRST_HIDE_DELAY_MILLIS = 2000;
     private final Handler mHideHandler = new Handler();
     private View mControlsView;
     private final Runnable mHideControlsRunnable = new Runnable() {
@@ -38,7 +38,10 @@ public class ComicViewerActivity extends AppCompatActivity {
         PhotoView photoView = findViewById(R.id.comic_photo_view);
         mControlsView = findViewById(R.id.fullscreen_content_controls);
         String imgUrl = getIntent().getStringExtra("url");
-        Glide.with(photoView).load(imgUrl).apply(new RequestOptions().fitCenter()).into(photoView);
+        Glide.with(photoView)
+                .load(imgUrl)
+                .apply(new RequestOptions().error(R.drawable.ic_xkcdholder).fitCenter())
+                .into(photoView);
 
         mControlsVisible = true;
         photoView.setOnClickListener(new View.OnClickListener() {
