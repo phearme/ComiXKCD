@@ -1,13 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@android:color/white"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".ComicViewerActivity">
     <com.github.chrisbanes.photoview.PhotoView
         android:transitionName="comicimage"
+        android:keepScreenOn="true"
         android:id="@+id/comic_photo_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-</LinearLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+        <LinearLayout
+            android:id="@+id/fullscreen_content_controls"
+            style="?metaButtonBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:background="@color/black_overlay"
+            android:orientation="horizontal"
+            tools:ignore="UselessParent">
+            <Button
+                android:foreground="?android:attr/selectableItemBackground"
+                android:textColor="@android:color/white"
+                android:id="@+id/close_button"
+                android:background="@color/black_overlay"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/close"/>
+        </LinearLayout>
+    </FrameLayout>
+</FrameLayout>
