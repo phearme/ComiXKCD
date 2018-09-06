@@ -1,5 +1,6 @@
 package com.phearme.comixkcd;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -11,6 +12,7 @@ import android.view.animation.AnimationUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.github.chrisbanes.photoview.PhotoView;
+import com.phearme.comixkcd.databinding.ActivityComicViewerBinding;
 
 
 public class ComicViewerActivity extends AppCompatActivity {
@@ -30,7 +32,10 @@ public class ComicViewerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_comic_viewer);
+
+        ComicViewerViewModel viewModel = new ComicViewerViewModel();
+        ActivityComicViewerBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_comic_viewer);
+        binding.setViewModel(viewModel);
 
         fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
         fadeOut = AnimationUtils.loadAnimation(this, R.anim.fade_out);

@@ -10,6 +10,7 @@ import com.phearme.appmediator.Mediator;
 import com.phearme.xkcdclient.Comic;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 public class MainViewModel extends BaseObservable {
@@ -47,9 +48,7 @@ public class MainViewModel extends BaseObservable {
 
                 if (result != null) {
                     lastComicIndex = result;
-                    for (int i = 0; i < lastComicIndex; i++) {
-                        comics.add(null);
-                    }
+                    comics = new ArrayList<>(Collections.nCopies(lastComicIndex, (Comic)null));
                     if (events != null) {
                         events.onDatasetChanged();
                     }
