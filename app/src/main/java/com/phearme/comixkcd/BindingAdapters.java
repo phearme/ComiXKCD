@@ -32,6 +32,17 @@ public class BindingAdapters {
         }
     }
 
+    @BindingAdapter("photoViewerWithGlide")
+    public static void setPhotoWithGlide(ImageView view, String imgUrl) {
+        Glide.with(view)
+                .load(imgUrl)
+                .apply(
+                        new RequestOptions()
+                                .error(R.drawable.ic_xkcdholder)
+                                .fitCenter())
+                .into(view);
+    }
+
     @BindingAdapter("fadevisible")
     public static void setFadeVisible(View view, boolean visible) {
         if (view.getVisibility() == View.VISIBLE && visible) { return; }

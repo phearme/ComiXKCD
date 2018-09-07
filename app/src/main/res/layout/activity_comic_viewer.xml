@@ -15,7 +15,7 @@
         tools:context=".ComicViewerActivity">
         <com.github.chrisbanes.photoview.PhotoView
             android:onClick="@{() -> viewModel.onPhotoClick()}"
-            app:loadWithGlide="@{viewModel.imgUrl}"
+            app:photoViewerWithGlide="@{viewModel.imgUrl}"
             android:transitionName="comicimage"
             android:keepScreenOn="true"
             android:id="@+id/comic_photo_view"
