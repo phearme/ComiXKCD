@@ -14,6 +14,8 @@
         android:layout_height="match_parent"
         tools:context=".ComicViewerActivity">
         <com.github.chrisbanes.photoview.PhotoView
+            android:onClick="@{() -> viewModel.onPhotoClick()}"
+            app:loadWithGlide="@{viewModel.imgUrl}"
             android:transitionName="comicimage"
             android:keepScreenOn="true"
             android:id="@+id/comic_photo_view"
@@ -24,6 +26,7 @@
             android:layout_height="match_parent"
             android:fitsSystemWindows="true">
             <LinearLayout
+                app:fadevisible="@{viewModel.closeButtonVisible}"
                 android:id="@+id/fullscreen_content_controls"
                 style="?metaButtonBarStyle"
                 android:layout_width="match_parent"
@@ -33,6 +36,7 @@
                 android:orientation="horizontal"
                 tools:ignore="UselessParent">
                 <Button
+                    android:onClick="@{() -> viewModel.onCloseClick()}"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:textColor="@android:color/white"
                     android:id="@+id/close_button"
