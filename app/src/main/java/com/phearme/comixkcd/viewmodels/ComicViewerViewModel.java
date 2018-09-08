@@ -9,7 +9,7 @@ import com.phearme.comixkcd.BR;
 
 public class ComicViewerViewModel extends BaseObservable {
     private static final int AUTO_HIDE_DELAY_MILLIS = 3000;
-    public static final int FIRST_HIDE_DELAY_MILLIS = 2000;
+    private static final int FIRST_HIDE_DELAY_MILLIS = 2000;
 
     private String imgUrl;
     private boolean closeButtonVisible;
@@ -69,8 +69,12 @@ public class ComicViewerViewModel extends BaseObservable {
         notifyPropertyChanged(BR.closeButtonVisible);
     }
 
-    public void delayedHide(int delayMillis) {
+    private void delayedHide(int delayMillis) {
         mHideHandler.removeCallbacks(mHideControlsRunnable);
         mHideHandler.postDelayed(mHideControlsRunnable, delayMillis);
+    }
+
+    public void firstDelayedHide() {
+        delayedHide(FIRST_HIDE_DELAY_MILLIS);
     }
 }

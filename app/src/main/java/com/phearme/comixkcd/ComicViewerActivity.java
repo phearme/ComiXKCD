@@ -31,7 +31,7 @@ public class ComicViewerActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        viewModel.delayedHide(ComicViewerViewModel.FIRST_HIDE_DELAY_MILLIS);
+        viewModel.firstDelayedHide();
     }
 
     private void close() {
