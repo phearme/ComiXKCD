@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements MainViewModel.IMa
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_about) {
             return true;
         }
         return super.onOptionsItemSelected(item);
