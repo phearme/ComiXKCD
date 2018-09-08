@@ -1,8 +1,10 @@
-package com.phearme.comixkcd;
+package com.phearme.comixkcd.viewmodels;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.os.Handler;
+
+import com.phearme.comixkcd.BR;
 
 
 public class ComicViewerViewModel extends BaseObservable {
@@ -24,7 +26,7 @@ public class ComicViewerViewModel extends BaseObservable {
         void onCloseButtonClick();
     }
 
-    ComicViewerViewModel(String imgUrl, IComicViewerEvents events) {
+    public ComicViewerViewModel(String imgUrl, IComicViewerEvents events) {
         this.imgUrl = imgUrl;
         this.closeButtonVisible = true;
         this.events = events;

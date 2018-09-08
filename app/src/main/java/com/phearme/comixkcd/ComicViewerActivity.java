@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.phearme.comixkcd.databinding.ActivityComicViewerBinding;
+import com.phearme.comixkcd.viewmodels.ComicViewerViewModel;
 
 
 public class ComicViewerActivity extends AppCompatActivity {

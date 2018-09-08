@@ -1,4 +1,4 @@
-package com.phearme.comixkcd;
+package com.phearme.comixkcd.viewmodels;
 
 import android.content.Context;
 import android.databinding.BaseObservable;
@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.phearme.appmediator.IMediatorEventHandler;
 import com.phearme.appmediator.Mediator;
+import com.phearme.comixkcd.BR;
 import com.phearme.xkcdclient.Comic;
 
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public class MainViewModel extends BaseObservable {
         void onFailedLoadingData();
     }
 
-    MainViewModel(Context context, final IMainViewModelEvents events) {
+    public MainViewModel(Context context, final IMainViewModelEvents events) {
         this.events = events;
         init(context);
     }

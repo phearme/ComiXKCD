@@ -1,4 +1,4 @@
-package com.phearme.comixkcd;
+package com.phearme.comixkcd.bindingadapters;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
@@ -7,12 +7,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import com.phearme.comixkcd.BR;
+import com.phearme.comixkcd.R;
+import com.phearme.comixkcd.viewmodels.MainViewModel;
 import com.phearme.xkcdclient.Comic;
 
 public class ComicsScrollViewAdapter extends RecyclerView.Adapter<BindingViewHolder> {
     private MainViewModel viewModel;
 
-    ComicsScrollViewAdapter(MainViewModel viewModel) {
+    public ComicsScrollViewAdapter(MainViewModel viewModel) {
         this.viewModel = viewModel;
     }
 

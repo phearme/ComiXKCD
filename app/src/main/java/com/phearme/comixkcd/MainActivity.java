@@ -13,7 +13,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.phearme.comixkcd.bindingadapters.ComicsScrollViewAdapter;
 import com.phearme.comixkcd.databinding.ActivityMainBinding;
+import com.phearme.comixkcd.viewmodels.MainViewModel;
 import com.phearme.xkcdclient.Comic;
 import com.yarolegovich.discretescrollview.DiscreteScrollView;
 import com.yarolegovich.discretescrollview.transform.Pivot;

@@ -1,4 +1,4 @@
-package com.phearme.comixkcd;
+package com.phearme.comixkcd.bindingadapters;
 
 import android.databinding.BindingAdapter;
 import android.view.View;
@@ -7,6 +7,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.phearme.comixkcd.R;
 
 public class BindingAdapters {
 

@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.phearme.comixkcd.ComicViewerViewModel"/>
+            type="com.phearme.comixkcd.viewmodels.ComicViewerViewModel"/>
     </data>
     <FrameLayout
         android:background="@android:color/white"

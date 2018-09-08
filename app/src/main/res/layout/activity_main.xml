@@ -7,7 +7,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.phearme.comixkcd.MainViewModel"/>
+            type="com.phearme.comixkcd.viewmodels.MainViewModel"/>
     </data>
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/parentLayout"

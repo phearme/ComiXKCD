@@ -1,4 +1,4 @@
-package com.phearme.comixkcd;
+package com.phearme.comixkcd.bindingadapters;
 
 import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;
