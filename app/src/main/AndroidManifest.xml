@@ -25,6 +25,10 @@
             android:name=".ComicViewerActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
+        <activity
+            android:name=".AboutActivity"
+            android:label="@string/about"
+            android:theme="@style/AppTheme.About" />
     </application>
 
 </manifest>

@@ -3,4 +3,8 @@
     <string name="about">About…</string>
     <string name="close">Close</string>
     <string name="something_went_wrong">Woops! Looks like someone pulled the plug</string>
+    <string name="version">version</string>
+    <string name="developed_by">Developed by</string>
+    <string name="author_email">raphael.cohen@gmail.com</string>
+    <string name="license">ComiXKCD is licensed under the MIT License</string>
 </resources>

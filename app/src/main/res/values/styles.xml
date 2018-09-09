@@ -27,4 +27,8 @@
         <item name="android:fontFamily">@font/xkcd_script</item>
     </style>
 
+    <style name="AppTheme.About" parent="@style/Theme.AppCompat.Light.Dialog">
+        <item name="android:fontFamily">@font/xkcd_script</item>
+        <item name="android:background">@color/app_green_light</item>
+    </style>
 </resources>
