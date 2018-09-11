@@ -6,9 +6,11 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -100,7 +102,12 @@ public class MainActivity extends AppCompatActivity implements MainViewModel.IMa
             @Override
             public void run() {
                 if (comicsScrollView != null) {
-                    comicsScrollView.smoothScrollToPosition(position);
+                    comicsScrollView.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            comicsScrollView.smoothScrollToPosition(position);
+                        }
+                    });
                 }
             }
         });
@@ -108,20 +115,17 @@ public class MainActivity extends AppCompatActivity implements MainViewModel.IMa
 
     @Override
     public void onComicClick(final View view, final Comic comic) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (comic == null) {
-                    return;
-                }
-                Intent intent = new Intent(MainActivity.this, ComicViewerActivity.class);
-                intent.putExtra("url", comic.getImg());
-                startActivity(
-                        intent,
-                        ActivityOptions.makeSceneTransitionAnimation(MainActivity.this, view, "comicimage")
-                                .toBundle());
-            }
-        });
+        if (comic == null) {
+            return;
+        }
+        Intent intent = new Intent(MainActivity.this, ComicViewerActivity.class);
+        intent.putExtra("url", comic.getImg());
+        intent.putExtra("number", comic.getNum());
+        String transitionName = ViewCompat.getTransitionName(view);
+        startActivity(
+                intent,
+                ActivityOptions.makeSceneTransitionAnimation(MainActivity.this, view, transitionName)
+                        .toBundle());
     }
 
     @Override

@@ -12,6 +12,7 @@ public class ComicViewerViewModel extends BaseObservable {
     private static final int FIRST_HIDE_DELAY_MILLIS = 2000;
 
     private String imgUrl;
+    private int comicNumber;
     private boolean closeButtonVisible;
     private IComicViewerEvents events;
     private final Handler mHideHandler = new Handler();
@@ -26,9 +27,10 @@ public class ComicViewerViewModel extends BaseObservable {
         void onCloseButtonClick();
     }
 
-    public ComicViewerViewModel(String imgUrl, IComicViewerEvents events) {
-        this.imgUrl = imgUrl;
-        this.closeButtonVisible = true;
+    public ComicViewerViewModel(String imgUrl, int comicNumber, IComicViewerEvents events) {
+        setImgUrl(imgUrl);
+        setComicNumber(comicNumber);
+        setCloseButtonVisible(true);
         this.events = events;
     }
 
@@ -40,6 +42,16 @@ public class ComicViewerViewModel extends BaseObservable {
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
         notifyPropertyChanged(BR.imgUrl);
+    }
+
+    @Bindable
+    public int getComicNumber() {
+        return comicNumber;
+    }
+
+    public void setComicNumber(int comicNumber) {
+        this.comicNumber = comicNumber;
+        notifyPropertyChanged(BR.comicNumber);
     }
 
     public void onPhotoClick() {

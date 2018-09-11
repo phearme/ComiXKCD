@@ -1,12 +1,21 @@
 package com.phearme.comixkcd.bindingadapters;
 
 import android.databinding.BindingAdapter;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestFutureTarget;
+import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
 import com.phearme.comixkcd.R;
 
 public class BindingAdapters {
@@ -34,9 +43,22 @@ public class BindingAdapters {
     }
 
     @BindingAdapter("photoViewerWithGlide")
-    public static void setPhotoWithGlide(ImageView view, String imgUrl) {
+    public static void setPhotoWithGlide(final ImageView view, String imgUrl) {
         Glide.with(view)
                 .load(imgUrl)
+                .addListener(new RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        ActivityCompat.startPostponedEnterTransition((AppCompatActivity)view.getContext());
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        ActivityCompat.startPostponedEnterTransition((AppCompatActivity)view.getContext());
+                        return false;
+                    }
+                })
                 .apply(
                         new RequestOptions()
                                 .error(R.drawable.ic_xkcdholder)

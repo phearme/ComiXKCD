@@ -3,6 +3,7 @@ package com.phearme.comixkcd;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import com.phearme.comixkcd.databinding.ActivityComicViewerBinding;
@@ -16,9 +17,10 @@ public class ComicViewerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         String imgUrl = getIntent().getStringExtra("url");
-        viewModel = new ComicViewerViewModel(imgUrl, new ComicViewerViewModel.IComicViewerEvents() {
+        int comicNumber = getIntent().getIntExtra("number", 0);
+
+        viewModel = new ComicViewerViewModel(imgUrl, comicNumber, new ComicViewerViewModel.IComicViewerEvents() {
             @Override
             public void onCloseButtonClick() {
                 close();
@@ -26,6 +28,7 @@ public class ComicViewerActivity extends AppCompatActivity {
         });
         ActivityComicViewerBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_comic_viewer);
         binding.setViewModel(viewModel);
+        ActivityCompat.postponeEnterTransition(this);
     }
 
     @Override
@@ -35,8 +38,7 @@ public class ComicViewerActivity extends AppCompatActivity {
     }
 
     private void close() {
-        finish();
-        overridePendingTransition(R.anim.to_left, R.anim.to_left);
+        finishAfterTransition();
     }
 
     @Override

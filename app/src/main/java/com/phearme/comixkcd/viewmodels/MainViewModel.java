@@ -4,10 +4,12 @@ import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.phearme.appmediator.IMediatorEventHandler;
 import com.phearme.appmediator.Mediator;
 import com.phearme.comixkcd.BR;
+import com.phearme.comixkcd.R;
 import com.phearme.xkcdclient.Comic;
 
 import java.util.ArrayList;
@@ -52,6 +54,12 @@ public class MainViewModel extends BaseObservable {
                     comics = new ArrayList<>(Collections.nCopies(lastComicIndex, (Comic)null));
                     if (events != null) {
                         events.onDatasetChanged();
+                    }
+                    int previousComicNumber = mediator.getCurrentComicNumber();
+                    if (previousComicNumber >= 0 && lastComicIndex != null && events != null) {
+                        int previousPosition = lastComicIndex - previousComicNumber;
+                        events.onScrollToPosition(previousPosition);
+                        return;
                     }
                     loadFirstComicsContent();
                 }
@@ -107,7 +115,8 @@ public class MainViewModel extends BaseObservable {
     }
 
     public void loadBufferContentFromPosition(int position) {
-        currentPosition = position;
+        setCurrentComic(null);
+        setCurrentPosition(position);
         Comic comic = comics.get(currentPosition);
         if (comic == null) {
             loadComic(currentPosition);
@@ -131,12 +140,38 @@ public class MainViewModel extends BaseObservable {
 
     public void setCurrentComic(Comic currentComic) {
         this.currentComic = currentComic;
+        if (currentComic != null) {
+            mediator.setCurrentComicNumber(currentComic.getNum());
+        }
         notifyPropertyChanged(BR.currentComic);
     }
 
     public void onComicClick(View view, Comic comic) {
-        if (events != null) {
-            events.onComicClick(view, comic);
+        ImageView img = view.findViewById(R.id.imgviewComicItem);
+        if (img != null && events != null) {
+            events.onComicClick(img, comic);
         }
+    }
+
+    public void onRewindClick() {
+        if (events != null && comics.size() > 0) {
+            events.onScrollToPosition(0);
+        }
+    }
+
+    public void onFastForwardClick() {
+        if (events != null && comics.size() > 0) {
+            events.onScrollToPosition(comics.size() - 1);
+        }
+    }
+
+    @Bindable
+    public int getCurrentPosition() {
+        return currentPosition;
+    }
+
+    public void setCurrentPosition(int currentPosition) {
+        this.currentPosition = currentPosition;
+        notifyPropertyChanged(BR.currentPosition);
     }
 }

@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
         <TextView
-            android:shadowColor="@android:color/white"
+            android:shadowColor="@color/almost_white"
             android:shadowDx="4"
             android:shadowDy="4"
             android:shadowRadius="2"

@@ -4,6 +4,7 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
+        <import type="java.lang.Integer" />
         <variable
             name="comic"
             type="com.phearme.xkcdclient.Comic"/>
@@ -22,8 +23,8 @@
         android:layout_gravity="top"
         tools:ignore="KeyboardInaccessibleWidget">
         <android.support.v7.widget.AppCompatImageView
+            android:transitionName="@{`comicimage_` + Integer.toString(comic.num)}"
             android:id="@+id/imgviewComicItem"
-            android:transitionName="comicimage"
             app:loadWithGlide="@{comic.img}"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
