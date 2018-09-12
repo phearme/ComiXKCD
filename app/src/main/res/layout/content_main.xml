@@ -31,6 +31,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:paddingTop="12dp"
+            app:fadevisibility="@{viewModel.currentComic != null}"
             android:text="@{viewModel.currentComic.title}"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             tools:text="sdfsdfs" />

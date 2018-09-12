@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements MainViewModel.IMa
 
     private ComicsScrollViewAdapter comicsScrollViewAdapter;
     private DiscreteScrollView comicsScrollView;
-    private View parentLayout;
+    private View layoutBottomControls;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements MainViewModel.IMa
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        parentLayout = findViewById(R.id.parentLayout);
+        layoutBottomControls = findViewById(R.id.layoutBottomControls);
         comicsScrollViewAdapter = new ComicsScrollViewAdapter(viewModel);
         comicsScrollView = findViewById(R.id.comicsScrollView);
         comicsScrollView.setAdapter(comicsScrollViewAdapter);
@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements MainViewModel.IMa
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Snackbar.make(parentLayout, R.string.something_went_wrong, Snackbar.LENGTH_LONG).show();
+                Snackbar.make(layoutBottomControls, R.string.something_went_wrong, Snackbar.LENGTH_LONG).show();
             }
         });
     }

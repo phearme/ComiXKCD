@@ -72,6 +72,13 @@ public class BindingAdapters {
         if (view.getVisibility() == View.GONE && !visible) { return; }
         view.setVisibility(visible ? View.VISIBLE : View.GONE);
         view.startAnimation(AnimationUtils.loadAnimation(view.getContext(), visible ? R.anim.fade_in : R.anim.fade_out));
+    }
 
+    @BindingAdapter("fadevisibility")
+    public static void setFadeVisibility(View view, boolean visible) {
+        if (view.getVisibility() == View.VISIBLE && visible) { return; }
+        if (view.getVisibility() == View.INVISIBLE && !visible) { return; }
+        view.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);
+        view.startAnimation(AnimationUtils.loadAnimation(view.getContext(), visible ? R.anim.fade_in : R.anim.fade_out));
     }
 }

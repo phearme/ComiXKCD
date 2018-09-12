@@ -37,7 +37,9 @@
             layout="@layout/content_main" />
 
         <LinearLayout
+            app:layout_behavior="com.phearme.comixkcd.uihelpers.FloatingActionButtonBehavior"
             android:layout_gravity="bottom|center_horizontal"
+            android:id="@+id/layoutBottomControls"
             android:gravity="center"
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -45,7 +47,7 @@
             <android.support.design.widget.FloatingActionButton
                 android:elevation="0dp"
                 app:elevation="0dp"
-                android:visibility="@{viewModel.currentPosition == 0 ? View.INVISIBLE : View.VISIBLE}"
+                app:fadevisibility="@{viewModel.currentPosition != 0}"
                 android:onClick="@{() -> viewModel.onRewindClick()}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -64,14 +66,14 @@
             <android.support.design.widget.FloatingActionButton
                 android:elevation="0dp"
                 app:elevation="0dp"
-                android:visibility="@{viewModel.currentPosition == (viewModel.comics.size() - 1) ? View.INVISIBLE : View.VISIBLE}"
+                app:fadevisibility="@{viewModel.comics.size() != 0 &amp;&amp; viewModel.currentPosition != (viewModel.comics.size() - 1)}"
                 android:onClick="@{() -> viewModel.onFastForwardClick()}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="0dp"
                 app:fabSize="mini"
                 app:srcCompat="@drawable/ic_fast_forward" />
-        </LinearLayout>
+            </LinearLayout>
 
     </android.support.design.widget.CoordinatorLayout>
 </layout>
