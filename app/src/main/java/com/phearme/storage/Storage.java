@@ -19,7 +19,7 @@ public class Storage {
     }
 
     public void getComic(final int num, IStorageEventHandler<RoomComic> callback) {
-        taskFactory.buildTask(new ReturnRunnable() {
+        taskFactory.buildTask(new ReturnRunnable<RoomComic>() {
             @Override
             public void run() {
                 setResult(db.roomComicDao().getByNum(num));

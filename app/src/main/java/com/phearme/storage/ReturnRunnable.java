@@ -1,13 +1,13 @@
 package com.phearme.storage;
 
-public abstract class ReturnRunnable implements Runnable {
-    private Object result;
+public abstract class ReturnRunnable<T> implements Runnable {
+    private T result;
 
-    public Object getResult() {
+    public T getResult() {
         return result;
     }
 
-    public void setResult(Object result) {
+    public void setResult(T result) {
         this.result = result;
     }
 }
