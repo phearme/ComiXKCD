@@ -1,8 +1,11 @@
 package com.phearme.comixkcd.viewmodels;
 
+import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.os.Handler;
+import android.support.v4.app.ShareCompat;
+import android.support.v7.app.AppCompatActivity;
 
 import com.phearme.comixkcd.BR;
 
@@ -63,6 +66,13 @@ public class ComicViewerViewModel extends BaseObservable {
         if (events != null) {
             events.onCloseButtonClick();
         }
+    }
+
+    public void onShareClick(Context context) {
+        ShareCompat.IntentBuilder.from((AppCompatActivity)context)
+                .setType("text/plain")
+                .setText(imgUrl)
+                .startChooser();
     }
 
     private void toggleCloseButtonVisible() {

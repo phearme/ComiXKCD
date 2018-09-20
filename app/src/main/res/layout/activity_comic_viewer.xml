@@ -26,25 +26,40 @@
             android:layout_height="match_parent"
             android:fitsSystemWindows="true">
             <LinearLayout
-                app:fadevisible="@{viewModel.closeButtonVisible}"
+                app:slideupdownvisible="@{viewModel.closeButtonVisible}"
                 android:id="@+id/fullscreen_content_controls"
                 style="?metaButtonBarStyle"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center_horizontal"
-                android:background="@color/black_overlay"
+                android:background="@drawable/back_overlay_panel"
                 android:orientation="horizontal"
+                android:padding="4dp"
                 tools:ignore="UselessParent">
                 <Button
+                    style="@style/Base.Widget.AppCompat.Button.Borderless"
                     android:onClick="@{() -> viewModel.onCloseClick()}"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:textColor="@android:color/white"
                     android:id="@+id/close_button"
-                    android:background="@color/black_overlay"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:drawableStart="@drawable/ic_close"
+                    android:layout_margin="2dp"
                     android:text="@string/close"/>
+                <Button
+                    style="@style/Base.Widget.AppCompat.Button.Borderless"
+                    android:onClick="@{() -> viewModel.onShareClick(context)}"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:textColor="@android:color/white"
+                    android:id="@+id/share_button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/ic_share"
+                    android:layout_margin="2dp"
+                    android:text="@string/share"/>
             </LinearLayout>
         </FrameLayout>
     </FrameLayout>
