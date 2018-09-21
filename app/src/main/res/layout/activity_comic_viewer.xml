@@ -34,7 +34,6 @@
                 android:layout_gravity="bottom|center_horizontal"
                 android:background="@drawable/back_overlay_panel"
                 android:orientation="horizontal"
-                android:padding="4dp"
                 tools:ignore="UselessParent">
                 <Button
                     style="@style/Base.Widget.AppCompat.Button.Borderless"
