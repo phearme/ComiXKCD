@@ -2,14 +2,19 @@ package com.phearme.appmediator;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.Uri;
+import android.support.v4.content.FileProvider;
 
 import com.phearme.comixkcd.R;
+import com.phearme.storage.GlideImageFileTask;
 import com.phearme.storage.IStorageEventHandler;
 import com.phearme.storage.RoomComic;
 import com.phearme.storage.Storage;
 import com.phearme.xkcdclient.Comic;
 import com.phearme.xkcdclient.IXKCDClientEventHandler;
 import com.phearme.xkcdclient.XKCDClient;
+
+import java.io.File;
 
 public class Mediator {
     private static Mediator mInstance;
@@ -138,5 +143,18 @@ public class Mediator {
                 }
             }
         });
+    }
+
+    public void getImageUriFromGlide(final Context context, String imageUrl, final IMediatorEventHandler<Uri> callback) {
+        new GlideImageFileTask(imageUrl, new GlideImageFileTask.IGlideImageFileTaskEvent() {
+            @Override
+            public void onComplete(File file) {
+                if (callback == null || file == null) {
+                    return;
+                }
+                Uri uri = FileProvider.getUriForFile(context, String.format("%s.provider", context.getPackageName()), file);
+                callback.onEvent(uri);
+            }
+        }).execute(context);
     }
 }

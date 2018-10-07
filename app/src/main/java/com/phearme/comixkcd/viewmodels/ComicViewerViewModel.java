@@ -3,10 +3,13 @@ package com.phearme.comixkcd.viewmodels;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.net.Uri;
 import android.os.Handler;
 import android.support.v4.app.ShareCompat;
 import android.support.v7.app.AppCompatActivity;
 
+import com.phearme.appmediator.IMediatorEventHandler;
+import com.phearme.appmediator.Mediator;
 import com.phearme.comixkcd.BR;
 
 
@@ -68,11 +71,18 @@ public class ComicViewerViewModel extends BaseObservable {
         }
     }
 
-    public void onShareClick(Context context) {
-        ShareCompat.IntentBuilder.from((AppCompatActivity)context)
-                .setType("text/plain")
-                .setText(imgUrl)
-                .startChooser();
+    public void onShareClick(final Context context) {
+        Mediator.getInstance(context).getImageUriFromGlide(context, imgUrl, new IMediatorEventHandler<Uri>() {
+            @Override
+            public void onEvent(Uri uri) {
+                if (uri != null) {
+                    ShareCompat.IntentBuilder.from((AppCompatActivity) context)
+                            .setType("image/*")
+                            .setStream(uri)
+                            .startChooser();
+                }
+            }
+        });
     }
 
     private void toggleCloseButtonVisible() {
