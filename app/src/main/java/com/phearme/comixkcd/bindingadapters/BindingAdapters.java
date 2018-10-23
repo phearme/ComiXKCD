@@ -18,6 +18,8 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.phearme.comixkcd.R;
 
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
+
 public class BindingAdapters {
 
     @BindingAdapter("loadWithGlide")
@@ -25,6 +27,7 @@ public class BindingAdapters {
         if (imgUrl != null) {
             Glide.with(view)
                     .load(imgUrl)
+                    .transition(withCrossFade())
                     .apply(
                             new RequestOptions()
                                     .error(R.drawable.ic_xkcdholder)
